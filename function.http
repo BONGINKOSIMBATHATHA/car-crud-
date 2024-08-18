@@ -1,0 +1,17 @@
+GET http://localhost:3000/api/mostPopularCar HTTP/1.1
+
+
+###
+GET  http://localhost:3000/cars  HTTP/1.1
+
+###
+POST http://localhost:3000/cars HTTP/1.1
+ 
+  
+###
+Get  http://localhost:3000/cars/:id HTTP/1.1
+###
+DELETE  http://localhost:3000/cars/${reg_number}
+
+###
+PUT http://localhost:3000/cars/${this.currentCar.reg_number}

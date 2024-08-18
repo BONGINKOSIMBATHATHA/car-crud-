@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Car CRUD Application</title>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div x-data="carApp()" x-init="fetchCars()">
+    <h1>Car CRUD Application</h1>
+
+    <!-- Create Form -->
+    <form @submit.prevent="createCar">
+      <input x-model="newCar.color" placeholder="Color" required>
+      <input x-model="newCar.make" placeholder="Make" required>
+      <input x-model="newCar.model" placeholder="Model" required>
+      <input x-model="newCar.reg_number" placeholder="Registration Number" required>
+      <button type="submit">Add Car</button>
+    </form>
+
+    <!-- Button to get the most popular car make -->
+    <button @click="getMostPopularCarMake">Get Most Popular Car Make</button>
+    <p x-text="mostPopularCarMake"></p>
+
+    <!-- Car List -->
+    <h2>List of Cars</h2>
+    <ul>
+      <template x-for="car in cars" :key="car.id">
+        <li>
+          <span x-text="`${car.color} ${car.make} ${car.model} (${car.reg_number})`"></span>
+          <button @click="editCar(car)">Edit</button>
+          <button @click="deleteCar(car.id)">Delete</button>
+        </li>
+      </template>
+    </ul>
+
+    <!-- Update Form -->
+    <div x-show="editing">
+      <form @submit.prevent="updateCar">
+        <input x-model="currentCar.color" placeholder="Color" required>
+        <input x-model="currentCar.make" placeholder="Make" required>
+        <input x-model="currentCar.model" placeholder="Model" required>
+        <input x-model="currentCar.reg_number" placeholder="Registration Number" required disabled>
+        <button type="submit">Update Car</button>
+        <button @click="cancelEdit">Cancel</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function carApp() {
+      return {
+        cars: [],
+        newCar: { color: '', make: '', model: '', reg_number: '' },
+        currentCar: { color: '', make: '', model: '', reg_number: '' },
+        editing: false,
+        mostPopularCarMake: '',
+        
+        fetchCars() {
+          axios.get('http://localhost:3000/api/cars')
+            .then(response => {
+              this.cars = response.data;
+            });
+        },
+
+        createCar() {
+          axios.post('http://localhost:3000/api/cars', this.newCar)
+            .then(response => {
+              this.cars.push(response.data);
+              this.newCar = { color: '', make: '', model: '', reg_number: '' };
+            });
+        },
+
+        editCar(car) {
+          this.currentCar = { ...car };
+          this.editing = true;
+        },
+
+        updateCar() {
+          axios.put(`http://localhost:3000/api/cars/${this.currentCar.id}`, this.currentCar)
+            .then(response => {
+              const index = this.cars.findIndex(c => c.id === this.currentCar.id);
+              if (index !== -1) {
+                this.cars.splice(index, 1, response.data);
+              }
+              this.editing = false;
+              this.currentCar = { color: '', make: '', model: '', reg_number: '' };
+            });
+        },
+
+        deleteCar(id) {
+          axios.delete(`http://localhost:3000/api/cars/${id}`)
+            .then(response => {
+              this.cars = this.cars.filter(car => car.id !== id);
+            });
+        },
+
+        getMostPopularCarMake() {
+          axios.get('http://localhost:3000/api/mostPopularCar')
+            .then(response => {
+              this.mostPopularCarMake = response.data.mostPopularMake;
+            });
+        },
+
+        cancelEdit() {
+          this.editing = false;
+          this.currentCar = { color: '', make: '', model: '', reg_number: '' };
+        }
+      }
+    }
+  </script>
+</body>
+</html>
