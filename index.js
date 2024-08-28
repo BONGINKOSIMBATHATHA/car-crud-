@@ -13,14 +13,14 @@ let cars = [
   { id: 1, color: 'white', make: 'Volkswagen', model: 'Polo', reg_number: 'CL 61045' },
   { id: 2, color: 'red', make: 'Toyota', model: 'Tazz', reg_number: 'CY 16875' },
   { id: 3, color: 'orange', make: 'Nissan', model: 'Juke', reg_number: 'CK 32655' },
-  { id: 4, color: "white", "make": "Nissan", "model": "Micra", "reg_number": "CJ 16103" },
-  { id: 5, color: "orange", "make": "Nissan", "model": "Juke", "reg_number": "CL 42789" },
-  { id: 6, color: "blue", "make": "Volkswagen", "model": "Jetta", "reg_number": "CA 46977" },
-  { id: 7, color: "white", "make": "Volkswagen", "model": "Polo", "reg_number": "CY 25661" },
-  { id: 8, color: "white", "make": "Nissan", "model": "Micra", "reg_number": "CY 35475" },
-  { id: 9, color: "orange", "make": "Toyota", "model": "Corolla", "reg_number": "CK 57166" },
-  { id: 10, color: "orange", "make": "Ford", "model": "Fiesta", "reg_number": "CL 77790" },
-  { id: 11, color: "blue", "make": "Nissan", "model": "Juke", "reg_number": "CY 98904" },
+  { id: 4, color: "white", make: "Nissan", model: "Micra", reg_number: "CJ 16103" },
+  { id: 5, color: "orange", make: "Nissan",model: "Juke", reg_number: "CL 42789" },
+  { id: 6, color: "blue", make: "Volkswagen", model: "Jetta", reg_number: "CA 46977" },
+  { id: 7, color: "white", make: "Volkswagen", model: "Polo", reg_number: "CY 25661" },
+  { id: 8, color: "white", make: "Nissan", model: "Micra", reg_number: "CY 35475" },
+  { id: 9, color: "orange", make: "Toyota", model: "Corolla", reg_number: "CK 57166" },
+  { id: 10, color: "orange", make: "Ford", model: "Fiesta", reg_number: "CL 77790" },
+  { id: 11, color: "blue", make: "Nissan", model: "Juke", reg_number: "CY 98904" },
   // more car objects...
 ];
 
